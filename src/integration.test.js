@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 
 const Shop = require('./shop')
 const Item = require('./item')
@@ -20,7 +21,7 @@ const gildedRose = new Shop(items)
 
 describe('Integration test', () => {
   it('Correctly calculates quality and sellIn over 30 days', () => {
-    const expectedOutput = fs.readFileSync(`${__dirname}/expected_output.txt`).toString('utf-8')
+    const expectedOutput = fs.readFileSync(path.join(__dirname, 'expected_output.txt')).toString('utf-8')
     let actualOutput = ''
 
     for (let day = 0; day <= days; day += 1) {
