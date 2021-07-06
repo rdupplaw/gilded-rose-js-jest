@@ -23,7 +23,7 @@ describe('Shop', () => {
       expect(items[0].quality).toBe(0);
     });
 
-    describe('when passed sell by date', () => {
+    describe('when past sell by date', () => {
       it('decreases quality by 2', () => {
         const itemDouble = { quality: 10, sellIn: 0 };
         const shop = new Shop([itemDouble]);
