@@ -12,6 +12,12 @@ describe('Shop', () => {
       items = shop.updateQuality()
     })
 
+    it('items is empty by default', () => {
+      shop = new Shop()
+      expect(shop.items).toBeInstanceOf(Array)
+      expect(shop.items).toHaveLength(0)
+    })
+
     it('decreases item quality by 1', () => {
       expect(items[0].quality).toBe(9)
     })
