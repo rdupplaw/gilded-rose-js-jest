@@ -5,7 +5,7 @@
         "node": true
     },
     "extends": [
-        "airbnb-base",
+        "standard",
         "plugin:jest/recommended",
         "plugin:jest/style"
     ],
