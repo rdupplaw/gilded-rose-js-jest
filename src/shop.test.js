@@ -102,6 +102,13 @@ describe('Shop', () => {
           items = shop.updateQuality();
           expect(items[0].quality).toBe(25);
         });
+
+        it('quality can\'t exceed 50', () => {
+          itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 10, quality: 49 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(50);
+        });
       });
 
       describe('when 0 < sellIn <= 5', () => {
@@ -110,6 +117,13 @@ describe('Shop', () => {
           shop = new Shop([itemDouble]);
           items = shop.updateQuality();
           expect(items[0].quality).toBe(9);
+        });
+
+        it('quality can\'t exceed 50', () => {
+          itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 10, quality: 48 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(50);
         });
       });
 
