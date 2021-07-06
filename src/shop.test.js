@@ -68,5 +68,50 @@ describe('Shop', () => {
         expect(items[0].sellIn).toBe(20);
       });
     });
+
+    describe('when item is "Backstage passes to a TAFKAL80ETC concert"', () => {
+      describe('when sell in > 10', () => {
+        it('increases quality by 1', () => {
+          itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 11, quality: 12 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(13);
+        });
+
+        it('quality can\'t exceed 50', () => {
+          itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 11, quality: 50 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(50);
+        });
+      });
+
+      describe('when 5 < sellIn <= 10', () => {
+        it('increases quality by 2', () => {
+          itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 10, quality: 23 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(25);
+        });
+      });
+
+      describe('when 0 < sellIn <= 5', () => {
+        it('increases quality by 3', () => {
+          itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 5, quality: 6 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(9);
+        });
+      });
+
+      describe('when sellIn <= 0', () => {
+        it('decreases quality to 0', () => {
+          itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 0, quality: 35 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(0);
+        });
+      });
+    });
   });
 });
