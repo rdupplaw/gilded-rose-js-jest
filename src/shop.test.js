@@ -15,5 +15,14 @@ describe('Shop', () => {
       const items = shop.updateQuality();
       expect(items[0].sellIn).toBe(19);
     });
+
+    describe('when passed sell by date', () => {
+      it('decreases quality by 2', () => {
+        const itemDouble = { quality: 10, sellIn: 0 };
+        const shop = new Shop([itemDouble]);
+        const items = shop.updateQuality();
+        expect(items[0].quality).toBe(8);
+      });
+    });
   });
 });
