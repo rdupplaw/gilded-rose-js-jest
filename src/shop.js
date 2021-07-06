@@ -33,43 +33,35 @@ module.exports = class Shop {
   }
 
   _updateBackstagePass(item) {
-    this._updateItem(item);
+    if (!this._isMaxQuality(item)) {
+      item.quality += 1;
+      if (item.sellIn < 11 && !this._isMaxQuality(item)) {
+        item.quality += 1;
+      }
+      if (item.sellIn < 6 && !this._isMaxQuality(item)) {
+        item.quality += 1;
+      }
+    }
+    item.sellIn -= 1;
+    if (this._isPastSellByDate(item)) {
+      item.quality -= item.quality;
+    }
   }
 
   _updateItem(item) {
-    if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-      if (!this._isMinQuality(item)) {
-        if (item.name != 'Sulfuras, Hand of Ragnaros') {
-          item.quality -= 1;
-        }
-      }
-    } else if (!this._isMaxQuality(item)) {
-      item.quality += 1;
-      if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-        if (item.sellIn < 11) {
-          if (!this._isMaxQuality(item)) {
-            item.quality += 1;
-          }
-        }
-        if (item.sellIn < 6) {
-          if (!this._isMaxQuality(item)) {
-            item.quality += 1;
-          }
-        }
+    if (!this._isMinQuality(item)) {
+      if (item.name != 'Sulfuras, Hand of Ragnaros') {
+        item.quality -= 1;
       }
     }
     if (item.name != 'Sulfuras, Hand of Ragnaros') {
       item.sellIn -= 1;
     }
     if (this._isPastSellByDate(item)) {
-      if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (!this._isMinQuality(item)) {
-          if (item.name != 'Sulfuras, Hand of Ragnaros') {
-            item.quality -= 1;
-          }
+      if (!this._isMinQuality(item)) {
+        if (item.name != 'Sulfuras, Hand of Ragnaros') {
+          item.quality -= 1;
         }
-      } else {
-        item.quality -= item.quality;
       }
     }
   }
