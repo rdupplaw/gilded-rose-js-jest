@@ -59,6 +59,13 @@ describe('Shop', () => {
           items = shop.updateQuality();
           expect(items[0].quality).toBe(32);
         });
+
+        it('quality can\'t exceed 50', () => {
+          itemDouble = { name: 'Aged Brie', sellIn: 0, quality: 49 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(50);
+        });
       });
     });
 

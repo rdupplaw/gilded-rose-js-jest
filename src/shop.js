@@ -25,9 +25,8 @@ module.exports = class Shop {
   _updateAgedBrie(item) {
     item.sellIn -= 1;
     if (!this._isMaxQuality(item)) {
-      if (this._isPastSellByDate(item)) {
-        item.quality += 2;
-      } else {
+      item.quality += 1;
+      if (this._isPastSellByDate(item) && !this._isMaxQuality(item)) {
         item.quality += 1;
       }
     }
