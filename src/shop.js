@@ -50,18 +50,12 @@ module.exports = class Shop {
 
   _updateItem(item) {
     if (!this._isMinQuality(item)) {
-      if (item.name != 'Sulfuras, Hand of Ragnaros') {
-        item.quality -= 1;
-      }
+      item.quality -= 1;
     }
-    if (item.name != 'Sulfuras, Hand of Ragnaros') {
-      item.sellIn -= 1;
-    }
+    item.sellIn -= 1;
     if (this._isPastSellByDate(item)) {
       if (!this._isMinQuality(item)) {
-        if (item.name != 'Sulfuras, Hand of Ragnaros') {
-          item.quality -= 1;
-        }
+        item.quality -= 1;
       }
     }
   }
