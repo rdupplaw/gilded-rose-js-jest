@@ -31,5 +31,21 @@ describe('Shop', () => {
         expect(items[0].quality).toBe(8);
       });
     });
+
+    describe('when item is "Aged Brie"', () => {
+      it('increases quality by 1', () => {
+        const itemDouble = { name: 'Aged Brie', quality: 5 };
+        const shop = new Shop([itemDouble]);
+        const items = shop.updateQuality();
+        expect(items[0].quality).toBe(6);
+      });
+
+      it('quality can\'t exceed 50', () => {
+        const itemDouble = { name: 'Aged Brie', quality: 50 };
+        const shop = new Shop([itemDouble]);
+        const items = shop.updateQuality();
+        expect(items[0].quality).toBe(50);
+      });
+    });
   });
 });
