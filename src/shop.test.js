@@ -8,5 +8,12 @@ describe('Shop', () => {
       const items = shop.updateQuality();
       expect(items[0].quality).toBe(9);
     });
+
+    it('decreases sell in by 1', () => {
+      const itemDouble = { sellIn: 20 };
+      const shop = new Shop([itemDouble]);
+      const items = shop.updateQuality();
+      expect(items[0].sellIn).toBe(19);
+    });
   });
 });
