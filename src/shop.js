@@ -44,7 +44,7 @@ module.exports = class Shop {
     }
     item.sellIn -= 1
     if (this._isPastSellByDate(item)) {
-      item.quality -= item.quality
+      item.quality = 0
     }
   }
 
