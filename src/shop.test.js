@@ -51,6 +51,15 @@ describe('Shop', () => {
         items = shop.updateQuality();
         expect(items[0].quality).toBe(50);
       });
+
+      describe('when sellIn < 0', () => {
+        it('increases quality by 2', () => {
+          itemDouble = { name: 'Aged Brie', sellIn: 0, quality: 30 };
+          shop = new Shop([itemDouble]);
+          items = shop.updateQuality();
+          expect(items[0].quality).toBe(32);
+        });
+      });
     });
 
     describe('when item is "Sulfuras, Hand of Ragnaros"', () => {
