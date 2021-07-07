@@ -63,14 +63,6 @@ module.exports = class Shop {
     }
   }
 
-  _isMaxQuality (item) {
-    return item.quality >= this._maxQuality
-  }
-
-  _isMinQuality (item) {
-    return item.quality <= this._minQuality
-  }
-
   _isPastSellByDate (item) {
     return item.sellIn < 0
   }
