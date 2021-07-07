@@ -1,6 +1,12 @@
 const Shop = require('./shop')
 
 describe('Shop', () => {
+  it('items is empty by default', () => {
+    const shop = new Shop()
+    expect(shop.items).toBeInstanceOf(Array)
+    expect(shop.items).toHaveLength(0)
+  })
+
   describe('.prototype.updateQuality', () => {
     let itemDouble
     let shop
@@ -10,12 +16,6 @@ describe('Shop', () => {
       itemDouble = { quality: 10, sellIn: 20 }
       shop = new Shop([itemDouble])
       items = shop.updateQuality()
-    })
-
-    it('items is empty by default', () => {
-      shop = new Shop()
-      expect(shop.items).toBeInstanceOf(Array)
-      expect(shop.items).toHaveLength(0)
     })
 
     it('decreases item quality by 1', () => {
