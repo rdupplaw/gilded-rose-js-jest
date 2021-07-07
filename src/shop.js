@@ -32,9 +32,7 @@ module.exports = class Shop {
   }
 
   _updateItemQuality (item, qualityChange) {
-    if (this._isPastSellByDate(item)) {
-      qualityChange *= 2
-    }
+    if (this._isPastSellByDate(item)) qualityChange *= 2
     if (item.quality + qualityChange > this._maxQuality) {
       item.quality = this._maxQuality
     } else if (item.quality + qualityChange < this._minQuality) {
