@@ -30,7 +30,7 @@ At this point I also changed the `switch` statement into an `if`/`else` statemen
 
 I would redesign the `Shop.prototype.updateQuality()` method to just call `item.updateQuality()` for each item held in the shop. The items themselves should contain the logic for updating their own `quality` and `sellIn`, through their own `updateQuality()` method.
 
-This could be achieved by putting an `updateQuality()` method in the `Item` class, containing some of the logic currently in `Shop`. For the special items like aged brie, there could be a subclass which implements its own specialised version of `updateQuality()`.
+This could be achieved through polymorphism and inheritance. I could put an `updateQuality()` method in the `Item` class, containing the logic currently in `Shop.prototype._updateItemQuality()`. For the special items, like aged brie, there could be an `AgedBrie` subclass which implements its own specialised version of `updateQuality()`, or which has properties or methods which modify the execution of the inherited `updateQuality()` method.
 
 I didn't do it this way because the rules of the kata forbid modifying the `Item` class.
 
