@@ -58,7 +58,7 @@ describe('Shop', () => {
         expect(items[0].quality).toBe(50)
       })
 
-      describe('when sellIn < 0', () => {
+      describe('when past sell by date', () => {
         it('increases quality by 2', () => {
           itemDouble = { name: 'Aged Brie', sellIn: 0, quality: 30 }
           shop = new Shop([itemDouble])
@@ -92,7 +92,7 @@ describe('Shop', () => {
     })
 
     describe('when item is "Backstage passes to a TAFKAL80ETC concert"', () => {
-      describe('when sell in > 10', () => {
+      describe('when more than 10 days before sell by date', () => {
         it('increases quality by 1', () => {
           itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 11, quality: 12 }
           shop = new Shop([itemDouble])
@@ -108,7 +108,7 @@ describe('Shop', () => {
         })
       })
 
-      describe('when 5 < sellIn <= 10', () => {
+      describe('when when more than 5 but less than 10 days before sell by date', () => {
         it('increases quality by 2', () => {
           itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 10, quality: 23 }
           shop = new Shop([itemDouble])
@@ -124,7 +124,7 @@ describe('Shop', () => {
         })
       })
 
-      describe('when 0 < sellIn <= 5', () => {
+      describe('when more than 0 but less than 5 days before sell by date', () => {
         it('increases quality by 3', () => {
           itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 5, quality: 6 }
           shop = new Shop([itemDouble])
@@ -140,7 +140,7 @@ describe('Shop', () => {
         })
       })
 
-      describe('when sellIn <= 0', () => {
+      describe('when after sell by date', () => {
         it('decreases quality to 0', () => {
           itemDouble = { name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 0, quality: 35 }
           shop = new Shop([itemDouble])
