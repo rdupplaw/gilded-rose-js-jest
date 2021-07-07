@@ -9,20 +9,14 @@ module.exports = class Shop {
     this.items.forEach((item) => {
       if (this._isConjured(item)) {
         this._updateConjuredItem(item)
+      } else if (item.name === 'Aged Brie') {
+        this._updateAgedBrie(item)
+      } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
+        this._updateBackstagePass(item)
+      } else if (item.name === 'Sulfuras, Hand of Ragnaros') {
+        // do nothing
       } else {
-        switch (item.name) {
-          case 'Aged Brie':
-            this._updateAgedBrie(item)
-            break
-          case 'Backstage passes to a TAFKAL80ETC concert':
-            this._updateBackstagePass(item)
-            break
-          case 'Sulfuras, Hand of Ragnaros':
-            break
-          default:
-            this._updateItem(item)
-            break
-        }
+        this._updateItem(item)
       }
     })
     return this.items
