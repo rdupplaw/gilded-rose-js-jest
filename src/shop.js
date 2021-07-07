@@ -24,6 +24,16 @@ module.exports = class Shop {
     return this.items
   }
 
+  _updateItem (item) {
+    item.sellIn -= 1
+    if (!this._isMinQuality(item)) {
+      item.quality -= 1
+    }
+    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
+      item.quality -= 1
+    }
+  }
+
   _updateAgedBrie (item) {
     item.sellIn -= 1
     if (!this._isMaxQuality(item)) {
@@ -47,16 +57,6 @@ module.exports = class Shop {
     item.sellIn -= 1
     if (this._isPastSellByDate(item)) {
       item.quality = 0
-    }
-  }
-
-  _updateItem (item) {
-    if (!this._isMinQuality(item)) {
-      item.quality -= 1
-    }
-    item.sellIn -= 1
-    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
-      item.quality -= 1
     }
   }
 
