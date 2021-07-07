@@ -2,6 +2,8 @@
 
 This is the [Gilded Rose kata](https://github.com/emilybache/GildedRose-Refactoring-Kata) in [JavaScript with Jest](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/main/js-jest).
 
+The intention of this kata is to practice testing, refactoring and adding new features to legacy code.
+
 ## Approach
 
 ### Refactoring
@@ -28,7 +30,7 @@ At this point I also changed the `switch` statement into an `if`/`else` statemen
 
 I would redesign the `Shop.prototype.updateQuality()` method to just call `item.updateQuality()` for each item held in the shop. The items themselves should contain the logic for updating their own `quality` and `sellIn`, through their own `updateQuality()` method.
 
-This could be achieved by putting an `updateQuality()` method in the `Item` class, containing the logic currently in `Shop.prototype._updateItem()`. For the special items like aged brie, there could be a subclass which implements its own specialised version of `updateQuality()`, containing the logic currently in `Shop.prototype._updateAgedBrie()`.
+This could be achieved by putting an `updateQuality()` method in the `Item` class, containing some of the logic currently in `Shop`. For the special items like aged brie, there could be a subclass which implements its own specialised version of `updateQuality()`.
 
 I didn't do it this way because the rules of the kata forbid modifying the `Item` class.
 
@@ -42,6 +44,8 @@ I didn't do it this way because the rules of the kata forbid modifying the `Item
 ### Installation
 
 ```sh
+git clone https://github.com/rdupplaw/gilded-rose-js-jest.git
+cs gilded-rose-js-jest
 npm install
 ```
 
