@@ -1,6 +1,8 @@
 module.exports = class Shop {
   constructor (items = []) {
     this.items = items
+    this._maxQuality = 50
+    this._minQuality = 0
   }
 
   updateQuality () {
@@ -59,11 +61,11 @@ module.exports = class Shop {
   }
 
   _isMaxQuality (item) {
-    return item.quality >= 50
+    return item.quality >= this._maxQuality
   }
 
   _isMinQuality (item) {
-    return item.quality <= 0
+    return item.quality <= this._minQuality
   }
 
   _isPastSellByDate (item) {
