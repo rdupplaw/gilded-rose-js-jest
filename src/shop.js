@@ -7,18 +7,22 @@ module.exports = class Shop {
 
   updateQuality () {
     this.items.forEach((item) => {
-      switch (item.name) {
-        case 'Aged Brie':
-          this._updateAgedBrie(item)
-          break
-        case 'Backstage passes to a TAFKAL80ETC concert':
-          this._updateBackstagePass(item)
-          break
-        case 'Sulfuras, Hand of Ragnaros':
-          break
-        default:
-          this._updateItem(item)
-          break
+      if (/^Conjured.+/.test(item.name)) {
+        this._updateConjuredItem(item)
+      } else {
+        switch (item.name) {
+          case 'Aged Brie':
+            this._updateAgedBrie(item)
+            break
+          case 'Backstage passes to a TAFKAL80ETC concert':
+            this._updateBackstagePass(item)
+            break
+          case 'Sulfuras, Hand of Ragnaros':
+            break
+          default:
+            this._updateItem(item)
+            break
+        }
       }
     })
     return this.items
@@ -27,6 +31,22 @@ module.exports = class Shop {
   _updateItem (item) {
     item.sellIn -= 1
     if (!this._isMinQuality(item)) {
+      item.quality -= 1
+    }
+    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
+      item.quality -= 1
+    }
+  }
+
+  _updateConjuredItem (item) {
+    item.sellIn -= 1
+    if (!this._isMinQuality(item)) {
+      item.quality -= 1
+    }
+    if (!this._isMinQuality(item)) {
+      item.quality -= 1
+    }
+    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
       item.quality -= 1
     }
     if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {

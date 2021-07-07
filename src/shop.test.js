@@ -149,5 +149,37 @@ describe('Shop', () => {
         })
       })
     })
+
+    describe('when item is conjured', () => {
+      it('decreases quality by 2', () => {
+        itemDouble = { name: 'Conjured Elixir of the Mongoose', quality: 15, sellIn: 10 }
+        shop = new Shop([itemDouble])
+        items = shop.updateQuality()
+        expect(items[0].quality).toBe(13)
+      })
+
+      it('quality can\'t go below 0', () => {
+        itemDouble = { name: 'Conjured Elixir of the Mongoose', quality: 1, sellIn: 10 }
+        shop = new Shop([itemDouble])
+        items = shop.updateQuality()
+        expect(items[0].quality).toBe(0)
+      })
+
+      describe('when past sell by date', () => {
+        it('decreases quality by 4', () => {
+          itemDouble = { name: 'Conjured Elixir of the Mongoose', quality: 15, sellIn: 0 }
+          shop = new Shop([itemDouble])
+          items = shop.updateQuality()
+          expect(items[0].quality).toBe(11)
+        })
+
+        it('quality can\'t go below 0', () => {
+          itemDouble = { name: 'Conjured Elixir of the Mongoose', quality: 3, sellIn: 0 }
+          shop = new Shop([itemDouble])
+          items = shop.updateQuality()
+          expect(items[0].quality).toBe(0)
+        })
+      })
+    })
   })
 })
