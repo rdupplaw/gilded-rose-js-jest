@@ -7,7 +7,7 @@ module.exports = class Shop {
 
   updateQuality () {
     this.items.forEach((item) => {
-      if (/^Conjured.+/.test(item.name)) {
+      if (this._isConjured(item)) {
         this._updateConjuredItem(item)
       } else {
         switch (item.name) {
@@ -28,55 +28,46 @@ module.exports = class Shop {
     return this.items
   }
 
-  _updateItem (item) {
+  _updateItem (item, qualityChange = -1) {
+    this._updateItemSellIn(item)
+    this._updateItemQuality(item, qualityChange)
+  }
+
+  _updateItemSellIn (item) {
     item.sellIn -= 1
-    if (!this._isMinQuality(item)) {
-      item.quality -= 1
+  }
+
+  _updateItemQuality (item, qualityChange) {
+    if (this._isPastSellByDate(item)) {
+      qualityChange *= 2
     }
-    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
-      item.quality -= 1
+    if (item.quality + qualityChange > this._maxQuality) {
+      item.quality = this._maxQuality
+    } else if (item.quality + qualityChange < this._minQuality) {
+      item.quality = this._minQuality
+    } else {
+      item.quality += qualityChange
     }
   }
 
   _updateConjuredItem (item) {
-    item.sellIn -= 1
-    if (!this._isMinQuality(item)) {
-      item.quality -= 1
-    }
-    if (!this._isMinQuality(item)) {
-      item.quality -= 1
-    }
-    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
-      item.quality -= 1
-    }
-    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
-      item.quality -= 1
-    }
+    this._updateItem(item, -2)
   }
 
   _updateAgedBrie (item) {
-    item.sellIn -= 1
-    if (!this._isMaxQuality(item)) {
-      item.quality += 1
-    }
-    if (this._isPastSellByDate(item) && !this._isMaxQuality(item)) {
-      item.quality += 1
-    }
+    this._updateItem(item, 1)
   }
 
   _updateBackstagePass (item) {
-    if (!this._isMaxQuality(item)) {
-      item.quality += 1
-    }
-    if (item.sellIn < 11 && !this._isMaxQuality(item)) {
-      item.quality += 1
-    }
-    if (item.sellIn < 6 && !this._isMaxQuality(item)) {
-      item.quality += 1
-    }
-    item.sellIn -= 1
+    this._updateItemSellIn(item)
     if (this._isPastSellByDate(item)) {
       item.quality = 0
+    } else if (item.sellIn < 5) {
+      this._updateItemQuality(item, 3)
+    } else if (item.sellIn < 10) {
+      this._updateItemQuality(item, 2)
+    } else {
+      this._updateItemQuality(item, 1)
     }
   }
 
@@ -90,5 +81,9 @@ module.exports = class Shop {
 
   _isPastSellByDate (item) {
     return item.sellIn < 0
+  }
+
+  _isConjured (item) {
+    return /^Conjured.+/.test(item.name)
   }
 }
