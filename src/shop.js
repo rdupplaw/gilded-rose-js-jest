@@ -8,9 +8,9 @@ module.exports = class Shop {
   updateQuality () {
     this.items.forEach((item) => {
       if (this._isConjured(item)) {
-        this._updateConjuredItem(item)
+        this._updateItem(item, -2)
       } else if (item.name === 'Aged Brie') {
-        this._updateAgedBrie(item)
+        this._updateItem(item, 1)
       } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
         this._updateBackstagePass(item)
       } else if (item.name === 'Sulfuras, Hand of Ragnaros') {
@@ -40,14 +40,6 @@ module.exports = class Shop {
   _updateItem (item, qualityChange = -1) {
     this._updateItemSellIn(item)
     this._updateItemQuality(item, qualityChange)
-  }
-
-  _updateConjuredItem (item) {
-    this._updateItem(item, -2)
-  }
-
-  _updateAgedBrie (item) {
-    this._updateItem(item, 1)
   }
 
   _updateBackstagePass (item) {
