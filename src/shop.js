@@ -26,21 +26,21 @@ module.exports = class Shop {
     item.sellIn -= 1
     if (!this._isMaxQuality(item)) {
       item.quality += 1
-      if (this._isPastSellByDate(item) && !this._isMaxQuality(item)) {
-        item.quality += 1
-      }
+    }
+    if (this._isPastSellByDate(item) && !this._isMaxQuality(item)) {
+      item.quality += 1
     }
   }
 
   _updateBackstagePass (item) {
     if (!this._isMaxQuality(item)) {
       item.quality += 1
-      if (item.sellIn < 11 && !this._isMaxQuality(item)) {
-        item.quality += 1
-      }
-      if (item.sellIn < 6 && !this._isMaxQuality(item)) {
-        item.quality += 1
-      }
+    }
+    if (item.sellIn < 11 && !this._isMaxQuality(item)) {
+      item.quality += 1
+    }
+    if (item.sellIn < 6 && !this._isMaxQuality(item)) {
+      item.quality += 1
     }
     item.sellIn -= 1
     if (this._isPastSellByDate(item)) {
@@ -53,10 +53,8 @@ module.exports = class Shop {
       item.quality -= 1
     }
     item.sellIn -= 1
-    if (this._isPastSellByDate(item)) {
-      if (!this._isMinQuality(item)) {
-        item.quality -= 1
-      }
+    if (this._isPastSellByDate(item) && !this._isMinQuality(item)) {
+      item.quality -= 1
     }
   }
 
