@@ -22,11 +22,6 @@ module.exports = class Shop {
     return this.items
   }
 
-  _updateItem (item, qualityChange = -1) {
-    this._updateItemSellIn(item)
-    this._updateItemQuality(item, qualityChange)
-  }
-
   _updateItemSellIn (item) {
     item.sellIn -= 1
   }
@@ -40,6 +35,11 @@ module.exports = class Shop {
     } else {
       item.quality += qualityChange
     }
+  }
+
+  _updateItem (item, qualityChange = -1) {
+    this._updateItemSellIn(item)
+    this._updateItemQuality(item, qualityChange)
   }
 
   _updateConjuredItem (item) {
